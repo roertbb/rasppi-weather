@@ -57,11 +57,20 @@ const MainMap = () => {
     getMeasurements();
   }, []);
 
-  const position = {
-    lat: 52.4167,
-    lng: 16.9333,
-    zoom: 11
-  };
+  const [position, setPosition] = useState({});
+
+  useEffect(() => {
+    const lat = localStorage.getItem('location.latitude');
+    const lng = localStorage.getItem('location.longitude');
+
+    const pos = {
+      lat: lat || 52.4167,
+      lng: lng || 16.9333,
+      zoom: 11
+    };
+
+    setPosition(pos);
+  }, []);
 
   const displayDetails = markerData => {
     setOverlayData(markerData);
@@ -78,7 +87,7 @@ const MainMap = () => {
         />
         {data.map(marker => (
           <Marker
-            key={marker.coordinates}
+            key={marker.coordinates.lat + '.' + marker.coordinates.lat}
             position={marker.coordinates}
             icon={customMarker}
             onClick={() => displayDetails(marker.data)}

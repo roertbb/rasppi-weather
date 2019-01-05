@@ -10,6 +10,26 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read http://bit.ly/CRA-PWA
 
+//function that gets the location and returns it
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    console.log('Geo Location not supported by browser');
+  }
+}
+//function that retrieves the position
+function showPosition(position) {
+  var location = {
+    longitude: position.coords.longitude,
+    latitude: position.coords.latitude
+  };
+  localStorage.setItem('location.longitude', location.longitude);
+  localStorage.setItem('location.latitude', location.latitude);
+}
+//request for location
+getLocation();
+
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
