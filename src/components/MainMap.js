@@ -15,7 +15,7 @@ const MapWrapper = styled('div')`
 `;
 
 const customMarker = icon({
-  iconUrl: require('../assets/marker.png'),
+  iconUrl: require('../assets/raspberry.svg'),
   iconSize: [50, 50]
 });
 
@@ -56,8 +56,6 @@ const MainMap = () => {
   useEffect(() => {
     getMeasurements();
   }, []);
-
-  console.log(data);
 
   const position = {
     lat: 52.4167,

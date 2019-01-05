@@ -43,8 +43,6 @@ const Button = styled.button`
 `;
 
 const Overlay = ({ data, close }) => {
-  console.log('overlay', data);
-
   return (
     <StyledOverlay data={data}>
       <Wrapper>
