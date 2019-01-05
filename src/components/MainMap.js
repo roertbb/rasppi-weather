@@ -40,7 +40,7 @@ const MainMap = () => {
           hum,
           temp
         };
-        if (so2) e['so2'] = so2;
+        if (so2) e['so2'] = parseFloat(Number(so2).toFixed(2));
         if (no2) e['no2'] = no2;
         if (co) e['co'] = co;
         measurementsDate.push(e);

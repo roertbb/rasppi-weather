@@ -87,8 +87,19 @@ const Overlay = ({ data, close }) => {
               <ResponsiveContainer height="40%" width="90%">
                 <LineChart width={300} height={300} data={data}>
                   >
-                  <XAxis dataKey="name" />
-                  <YAxis domain={['dataMin - 1', 'dataMax + 1']} />
+                  <XAxis
+                    dataKey="name"
+                    height={50}
+                    tickMargin={20}
+                    angle={-25}
+                    tickFormatter={value => value.split(' ')[1]}
+                  />
+                  <YAxis
+                    domain={['dataMin - 1', 'dataMax + 1']}
+                    tickFormatter={value =>
+                      type === 'so2' ? parseFloat(value).toFixed(2) : value
+                    }
+                  />
                   <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                   <Line
                     type="monotone"
