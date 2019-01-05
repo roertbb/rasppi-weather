@@ -4,6 +4,11 @@ import Nav from './components/Nav';
 import styled, { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css?family=Poppins');
+  :root {
+    font-family: 'Poppins', sans-serif;
+  }
+
   body {
     margin: 0;
     padding: 0;

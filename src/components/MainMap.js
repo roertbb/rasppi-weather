@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Map, TileLayer, Marker } from 'react-leaflet';
 import styled from 'styled-components';
 // leaflet styles
 import '../../node_modules/leaflet/dist/leaflet.css';
 import { icon } from 'leaflet';
 import axios from 'axios';
+import Overlay from './OverlayInfo';
 
 const MapWrapper = styled('div')`
   .leaflet-container {
@@ -34,10 +35,11 @@ const MainMap = () => {
       const entries = measurements.data[place];
       for (const entry in entries) {
         const { hum, temp, timestamp } = entries[entry];
-        measurementsDate[timestamp] = {
+        measurementsDate.push({
+          name: timestamp,
           hum,
           temp
-        };
+        });
       }
       const parsedPlace = {
         coordinates: {
@@ -63,6 +65,12 @@ const MainMap = () => {
     zoom: 11
   };
 
+  const displayDetails = markerData => {
+    setOverlayData(markerData);
+  };
+
+  const [overlayData, setOverlayData] = useState(null);
+
   return (
     <MapWrapper>
       <Map center={position} zoom={position.zoom}>
@@ -75,9 +83,11 @@ const MainMap = () => {
             key={marker.coordinates}
             position={marker.coordinates}
             icon={customMarker}
+            onClick={() => displayDetails(marker.data)}
           />
         ))}
       </Map>
+      <Overlay data={overlayData} close={() => setOverlayData(null)} />
     </MapWrapper>
   );
 };
