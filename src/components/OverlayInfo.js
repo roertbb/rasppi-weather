@@ -9,6 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer
 } from 'recharts';
+import closeIcon from '../assets/close.svg';
 
 const StyledOverlay = styled.div`
   position: absolute;
@@ -32,6 +33,15 @@ const Wrapper = styled.div`
   }
 `;
 
+const Button = styled.button`
+  border: 0;
+  background-color: #fff;
+
+  img {
+    width: 24px;
+  }
+`;
+
 const Overlay = ({ data, close }) => {
   console.log('overlay', data);
 
@@ -39,9 +49,9 @@ const Overlay = ({ data, close }) => {
     <StyledOverlay data={data}>
       <Wrapper>
         <h1>Temperature</h1>
-        <button type="button" onClick={close}>
-          close
-        </button>
+        <Button type="button" onClick={close}>
+          <img src={closeIcon} className="App-logo" alt="close" />
+        </Button>
       </Wrapper>
       <ResponsiveContainer height="50%" width="90%">
         <LineChart width={300} height={300} data={data}>
