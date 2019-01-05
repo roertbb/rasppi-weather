@@ -12,6 +12,7 @@ const StyledNav = styled.nav`
   color: #fff;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
 
   img {
     margin-left: 8px;

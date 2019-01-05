@@ -21,6 +21,14 @@ const StyledOverlay = styled.div`
   /* opacity: ${({ data }) => (data != null ? 1 : 0)}; */
   z-index: ${({ data }) => (data != null ? 9999 : -9999)};
   overflow-y: scroll;
+
+  .recharts-responsive-container {
+    margin: auto;
+  }
+
+  .recharts-wrapper {
+    margin-left: -16px;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -53,6 +61,7 @@ const Overlay = ({ data, close }) => {
       </Wrapper>
       <ResponsiveContainer height="50%" width="90%">
         <LineChart width={300} height={300} data={data}>
+          >
           <XAxis dataKey="name" />
           <YAxis domain={['dataMin - 2', 'dataMax + 2']} />
           <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
