@@ -34,12 +34,16 @@ const MainMap = () => {
       const lng = Number(coords[2] + '.' + coords[3]);
       const entries = measurements.data[place];
       for (const entry in entries) {
-        const { hum, temp, timestamp } = entries[entry];
-        measurementsDate.push({
+        const { hum, temp, so2, no2, co, timestamp } = entries[entry];
+        const e = {
           name: timestamp,
           hum,
           temp
-        });
+        };
+        if (so2) e['so2'] = so2;
+        if (no2) e['no2'] = no2;
+        if (co) e['co'] = co;
+        measurementsDate.push(e);
       }
       const parsedPlace = {
         coordinates: {

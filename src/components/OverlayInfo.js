@@ -50,37 +50,57 @@ const Button = styled.button`
   }
 `;
 
+const plotsData = {
+  types: ['temp', 'hum', 'so2', 'no2', 'co'],
+  labels: {
+    temp: 'Temperature [°C]',
+    hum: 'Relative Humidity [%]',
+    so2: 'Sulphur dioxide [µg/m3]',
+    no2: 'Nitrogen dioxide [µg/m3]',
+    co: 'Carbon monoxide [µg/m3]'
+  },
+  strokes: {
+    temp: '#82ca9d',
+    hum: '#8884d8',
+    so2: '#f7b016',
+    no2: '#12e5be',
+    co: '#ea1f09'
+  }
+};
+
 const Overlay = ({ data, close }) => {
   return (
     <StyledOverlay data={data}>
-      <Wrapper>
-        <h1>Temperature</h1>
-        <Button type="button" onClick={close}>
-          <img src={closeIcon} className="App-logo" alt="close" />
-        </Button>
-      </Wrapper>
-      <ResponsiveContainer height="50%" width="90%">
-        <LineChart width={300} height={300} data={data}>
-          >
-          <XAxis dataKey="name" />
-          <YAxis domain={['dataMin - 2', 'dataMax + 2']} />
-          <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-          <Line type="monotone" dataKey="temp" stroke="#82ca9d" />
-          <Tooltip />
-        </LineChart>
-      </ResponsiveContainer>
-      <Wrapper>
-        <h1>Humidity</h1>
-      </Wrapper>
-      <ResponsiveContainer height="50%" width="90%">
-        <LineChart width={300} height={300} data={data}>
-          <XAxis dataKey="name" />
-          <YAxis domain={['dataMin - 5', 'dataMax + 5']} />
-          <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-          <Line type="monotone" dataKey="hum" stroke="#8884d8" />
-          <Tooltip />
-        </LineChart>
-      </ResponsiveContainer>
+      {data &&
+        plotsData.types.map((type, index) => {
+          if (!data[0][type]) return null;
+          return (
+            <React.Fragment key={type}>
+              <Wrapper>
+                <h2>{plotsData.labels[type]}</h2>
+                {index === 0 && (
+                  <Button type="button" onClick={close}>
+                    <img src={closeIcon} className="App-logo" alt="close" />
+                  </Button>
+                )}
+              </Wrapper>
+              <ResponsiveContainer height="40%" width="90%">
+                <LineChart width={300} height={300} data={data}>
+                  >
+                  <XAxis dataKey="name" />
+                  <YAxis domain={['dataMin - 1', 'dataMax + 1']} />
+                  <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+                  <Line
+                    type="monotone"
+                    dataKey={type}
+                    stroke={plotsData.strokes[type]}
+                  />
+                  <Tooltip />
+                </LineChart>
+              </ResponsiveContainer>
+            </React.Fragment>
+          );
+        })}
     </StyledOverlay>
   );
 };
